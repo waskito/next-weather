@@ -26,6 +26,22 @@ Then open [https://localhost:3000](https://localhost:3000).
 
 ---
 
+### Testing
+
+Command line
+```sh
+npm run dev && npm run test
+```
+
+Interactive
+```sh
+npm run dev && npm run test:i
+```
+
+Then open [https://localhost:3000](https://localhost:3000).
+
+---
+
 ## Creating a New Component
 
 To make a new component you’ll need to make three files: the source code,
