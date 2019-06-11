@@ -12,6 +12,10 @@ First you need to set up local development
 npm install
 ```
 
+### Setup on local
+
+Rename `.env-sample` to `.env`. Then run the app.
+
 ### Running on local machine
 
 ```sh
