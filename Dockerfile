@@ -17,4 +17,4 @@ RUN npm run build
 EXPOSE 80/tcp
 EXPOSE 8080/tcp
 ENV NODE_ENV production
-CMD ["pm2", "start", "-f", "server.js", "--name", "klola-next", "--no-daemon"]
+CMD ["pm2", "start", "-f", "server.js", "--name", "next-weather", "--no-daemon"]
