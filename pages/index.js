@@ -70,7 +70,7 @@ render() {
     inBrowser
   } = this.state;
   return (
-    <div>
+    <main>
       <Head title={`${t('current-weather')} | ${t('title')}`} />
       <h1>{t('current-weather')}</h1>
       {inBrowser &&
@@ -81,7 +81,7 @@ render() {
           {JSON.stringify(weather)}
         </div>
       }
-    </div>
+    </main>
   )
 }
 }
