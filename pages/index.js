@@ -1,15 +1,21 @@
 import ButtonGeolocation from '../components/button-geolocation'
 import { compose } from "redux"
 import { connect } from 'react-redux'
-import { get, isEmpty } from 'lodash'
+import {
+  first,
+  get,
+  isEmpty
+} from 'lodash'
 import { getCookie } from '../utils/cookies'
 import Head from '../components/head'
 import { i18n, withNamespaces } from '../i18n'
 import { Link } from '../routes'
+import moment from 'moment'
 import numeral from '../utils/numeral'
 import PropTypes from 'prop-types'
 import React from 'react'
 import noAuth from '../_hoc/noAuth'
+import d2d from 'degrees-to-direction'
 import {
   myIp,
   saveLocation,
@@ -72,13 +78,49 @@ render() {
   return (
     <main>
       <Head title={`${t('current-weather')} | ${t('title')}`} />
-      <h1>{t('current-weather')}</h1>
+      <div className="row justify-content-center">
+        <div className="col-md-auto col-lg-6">
+          <h1 className="text-center">{t('current-weather')}</h1>
+        </div>
+      </div>
       {inBrowser &&
-        <ButtonGeolocation />
+        <div className="row justify-content-center">
+          <div className="col-md-auto col-lg-6">
+            <ButtonGeolocation />
+          </div>
+        </div>
       }
       {!isEmpty(weather) &&
-        <div>
-          {JSON.stringify(weather)}
+        <div className="row justify-content-center m-t-16">
+          <div className="col-md-auto col-lg-6">
+            <table className="table table-bordered">
+              <tbody>
+                <tr>
+                  <td>Location</td>
+                  <td>{ get(weather, 'name') }</td>
+                </tr>
+                <tr>
+                  <td>Cloudiness</td>
+                  <td className="text-capitalize">
+                    <span>{ get(first(get(weather, 'weather')), 'description') }</span>
+                    <img src={`http://openweathermap.org/img/w/${get(first(get(weather, 'weather')), 'icon')}.png`} alt={get(first(get(weather, 'weather')), 'description')} height="24" width="24" />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Wind</td>
+                  <td>{ get(weather, 'wind.speed') } m/s, {d2d( get(weather, 'wind.deg') )}</td>
+                </tr>
+                <tr>
+                  <td>Pressure</td>
+                  <td>{ get(weather, 'main.pressure') } hpa</td>
+                </tr>
+                <tr>
+                  <td>Humidity</td>
+                  <td>{ get(weather, 'main.humidity') } %</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       }
     </main>

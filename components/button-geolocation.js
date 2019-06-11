@@ -30,14 +30,16 @@ class ButtonGeolocation extends React.Component {
   render() {
     const {
       coords,
+      getLocation,
       isGeolocationAvailable,
       isGeolocationEnabled
     } = this.props;
     return (
       <div>
-        <p>{ isGeolocationAvailable ? 'available' : 'unavailable' }</p>
+        {/*<button className="btn btn-primary" onClick={getLocation}><i className="zmdi zmdi-my-location"></i></button>*/}
+        {/*<p>{ isGeolocationAvailable ? 'available' : 'unavailable' }</p>
         <p>{ isGeolocationEnabled ? 'enabled' : 'disabled' }</p>
-        <p>{ coords ? `allowed (lat,lng): ${coords.latitude}, ${coords.longitude} ` : 'unallowed' }</p>
+        <p>{ coords ? `allowed (lat,lng): ${coords.latitude}, ${coords.longitude} ` : 'unallowed' }</p>*/}
       </div>
     )
   }

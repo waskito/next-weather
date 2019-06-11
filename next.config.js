@@ -1,5 +1,5 @@
 const css = require("@zeit/next-css");
-// const Dotenv = require('dotenv-webpack');
+const Dotenv = require('dotenv-webpack');
 const offline = require("next-offline");
 const path = require('path');
 const sass = require("@zeit/next-sass");
@@ -38,10 +38,10 @@ module.exports = withPlugins([
 
     config.plugins = [
       ...config.plugins
-      // new Dotenv({
-      //   path: path.join(__dirname, '.env'),
-      //   systemvars: true
-      // })
+      new Dotenv({
+        path: path.join(__dirname, '.env'),
+        systemvars: true
+      })
     ]
 
     return config
