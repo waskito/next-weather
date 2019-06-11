@@ -18,7 +18,7 @@ npm install
 npm run dev
 ```
 
-Then open [https://localhost:7000](https://localhost:7000).
+Then open [https://localhost:9090](https://localhost:9090).
 
 ---
 
