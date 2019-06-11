@@ -44,7 +44,6 @@ export default class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
-          <script async defer="" src={`https://maps.googleapis.com/maps/api/js?key=${NEXT_WEATHER_GOOGLE_API_KEY}&libraries=places`}></script>
         </body>
       </html>
     );
