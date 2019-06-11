@@ -41,6 +41,7 @@ class Index extends React.Component {
           const lat = get(resLocation,'data.latitude');
           const lng = get(resLocation,'data.longitude');
 
+          store.dispatch(setLocation(lat, lng, 'ip-address'));
           store.dispatch(saveLocation(lat, lng, 'ip-address'));
           await store.dispatch(getWeatherByLatLng( lat, lng, lang ));
         }
@@ -71,6 +72,7 @@ class Index extends React.Component {
 
 render() {
   const {
+    location,
     lang,
     t,
     weather
@@ -95,7 +97,7 @@ render() {
         </div>
       }
       {!isEmpty(weather) &&
-        <div>
+        <div className={`provider ${get(location,'provider')}`}>
           <div className="row justify-content-center m-t-16">
             <div className="col-md-auto text-center col-lg-6">
               <h3 className="text-capitalize">
@@ -115,7 +117,7 @@ render() {
                 <tbody>
                   <tr>
                     <td><img src="/static/images/svg/weather-1.svg" width="18" height="18"  /> Location</td>
-                    <td>{ get(weather, 'name') }</td>
+                    <td className="td-location">{ get(weather, 'name') }</td>
                   </tr>
                   <tr>
                     <td><img src="/static/images/svg/clouds.svg" width="18" height="18"  /> Cloudiness</td>
@@ -153,6 +155,7 @@ render() {
 }
 
 const mapStateToProps = (state) => ({
+  location: state.location.data,
   weather: state.weather.data
 })
 
