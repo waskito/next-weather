@@ -22,7 +22,7 @@ Rename `.env-sample` to `.env`. Then run the app.
 npm run dev
 ```
 
-Then open [https://localhost:9090](https://localhost:9090).
+Then open [https://localhost:3000](https://localhost:3000).
 
 ---
 

@@ -1,5 +1,5 @@
-describe('My First Test', function() {
+describe('Determine the location', function() {
   it('navigate to home', function() {
-    cy.visit('http://localhost:9090')
+    cy.visit('/')
   })
 })

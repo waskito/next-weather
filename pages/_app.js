@@ -33,6 +33,12 @@ export default withRedux(initStore)(appWithTranslation(
       };
     }
 
+    componentDidMount(){
+      if (window.Cypress) {
+        window.store = this.props.store;
+      }
+    }
+
     render() {
       const { Component, pageProps, store } = this.props;
       return (
