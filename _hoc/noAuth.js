@@ -37,7 +37,7 @@ const withoutAuthentication = (permissions = [], layoutClass = "") => NoAuthComp
     render() {
       const { isLoading, layoutClass } = this.state;
       return (
-          <Layout>
+          <Layout asPath={this.props.asPath}>
             <NoAuthComponent {...this.props} />
           </Layout>
         )

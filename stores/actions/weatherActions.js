@@ -11,7 +11,7 @@ const { publicRuntimeConfig } = getConfig()
 const { NEXT_WEATHER_OPENWEATHER_API_KEY } = publicRuntimeConfig
 
 
-export const getWeatherByLatLng = (lat, lon) => async dispatch => {
+export const getWeatherByLatLng = (lat, lon, lang = 'en') => async dispatch => {
   const dataReq = {
     method: "GET",
     url: apiUrl + `/2.5/weather`,
@@ -19,7 +19,8 @@ export const getWeatherByLatLng = (lat, lon) => async dispatch => {
       params: {
         lat,
         lon,
-        appid: NEXT_WEATHER_OPENWEATHER_API_KEY
+        appid: NEXT_WEATHER_OPENWEATHER_API_KEY,
+        lang: lang
       }
     }
   };

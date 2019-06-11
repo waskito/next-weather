@@ -9,6 +9,7 @@ import {
 import { getCookie } from '../utils/cookies'
 import Head from '../components/head'
 import { i18n, withNamespaces } from '../i18n'
+import { kelvinToCelsius } from 'temperature'
 import { Link } from '../routes'
 import moment from 'moment'
 import numeral from '../utils/numeral'
@@ -29,6 +30,7 @@ class Index extends React.Component {
   static async getInitialProps({store, req}) {
     const currentState = store.getState();
     const coordsFromCookie = getCookie("__nw", req) || null;
+    const lang = getCookie('next-i18next', req) || 'en';
 
     if ((!coordsFromCookie || (coordsFromCookie && coordsFromCookie.provider == 'ip-address')) && !get(currentState, 'myip.loaded') ){
       const resMyIp = await store.dispatch(myIp());
@@ -40,17 +42,18 @@ class Index extends React.Component {
           const lng = get(resLocation,'data.longitude');
 
           store.dispatch(saveLocation(lat, lng, 'ip-address'));
-          await store.dispatch(getWeatherByLatLng( lat, lng ));
+          await store.dispatch(getWeatherByLatLng( lat, lng, lang ));
         }
 
       }
     }
 
     if (coordsFromCookie) {
-      await store.dispatch(getWeatherByLatLng( coordsFromCookie.latitude, coordsFromCookie.longitude ));
+      await store.dispatch(getWeatherByLatLng( coordsFromCookie.latitude, coordsFromCookie.longitude, lang ));
     }
 
     return {
+      lang,
       namespacesRequired: ['common']
     }
   }
@@ -68,6 +71,7 @@ class Index extends React.Component {
 
 render() {
   const {
+    lang,
     t,
     weather
   } = this.props;
@@ -80,46 +84,66 @@ render() {
       <Head title={`${t('current-weather')} | ${t('title')}`} />
       <div className="row justify-content-center">
         <div className="col-md-auto col-lg-6">
-          <h1 className="text-center">{t('current-weather')}</h1>
+          <h2 className="text-center m-b-24">{t('current-weather')}</h2>
         </div>
       </div>
       {inBrowser &&
         <div className="row justify-content-center">
           <div className="col-md-auto col-lg-6">
-            <ButtonGeolocation />
+            <ButtonGeolocation lang={lang} />
           </div>
         </div>
       }
       {!isEmpty(weather) &&
-        <div className="row justify-content-center m-t-16">
-          <div className="col-md-auto col-lg-6">
-            <table className="table table-bordered">
-              <tbody>
-                <tr>
-                  <td>Location</td>
-                  <td>{ get(weather, 'name') }</td>
-                </tr>
-                <tr>
-                  <td>Cloudiness</td>
-                  <td className="text-capitalize">
-                    <span>{ get(first(get(weather, 'weather')), 'description') }</span>
-                    <img src={`http://openweathermap.org/img/w/${get(first(get(weather, 'weather')), 'icon')}.png`} alt={get(first(get(weather, 'weather')), 'description')} height="24" width="24" />
-                  </td>
-                </tr>
-                <tr>
-                  <td>Wind</td>
-                  <td>{ get(weather, 'wind.speed') } m/s, {d2d( get(weather, 'wind.deg') )}</td>
-                </tr>
-                <tr>
-                  <td>Pressure</td>
-                  <td>{ get(weather, 'main.pressure') } hpa</td>
-                </tr>
-                <tr>
-                  <td>Humidity</td>
-                  <td>{ get(weather, 'main.humidity') } %</td>
-                </tr>
-              </tbody>
-            </table>
+        <div>
+          <div className="row justify-content-center m-t-16">
+            <div className="col-md-auto text-center col-lg-6">
+              <h3 className="text-capitalize">
+                <img
+                  className="main-icon"
+                  alt={get(first(get(weather, 'weather')), 'description')}
+                  height="36"
+                  src={`/static/images/weather/${get(first(get(weather, 'weather')), 'icon')}.svg`}
+                  width="36" />
+                { get(first(get(weather, 'weather')), 'description') }
+              </h3>
+            </div>
+          </div>
+          <div className="row justify-content-center m-t-16">
+            <div className="col-md-auto col-lg-6">
+              <table className="table table-bordered">
+                <tbody>
+                  <tr>
+                    <td><img src="/static/images/svg/weather-1.svg" width="18" height="18"  /> Location</td>
+                    <td>{ get(weather, 'name') }</td>
+                  </tr>
+                  <tr>
+                    <td><img src="/static/images/svg/clouds.svg" width="18" height="18"  /> Cloudiness</td>
+                    <td className="text-capitalize">
+                      <span>{ get(first(get(weather, 'weather')), 'description') }</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><img src="/static/images/svg/temperature-1.svg" width="18" height="18"  /> Temperature</td>
+                    <td className="text-capitalize">
+                      <span>{ numeral(kelvinToCelsius(get(weather, 'main.temp'))).format('0,0.0') } ° Celsius</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><img src="/static/images/svg/wind.svg" width="18" height="18"  /> Wind</td>
+                    <td>{ numeral(get(weather, 'wind.speed')).format('0,0.00') } m/s, {d2d( get(weather, 'wind.deg') )}</td>
+                  </tr>
+                  <tr>
+                    <td><img src="/static/images/svg/temperature-2.svg" width="18" height="18"  /> Pressure</td>
+                    <td>{ numeral(get(weather, 'main.pressure')).format('0,0.00') } hpa</td>
+                  </tr>
+                  <tr>
+                    <td><img src="/static/images/svg/hail.svg" width="18" height="18"  /> Humidity</td>
+                    <td>{ numeral(get(weather, 'main.humidity')).format('0,0') } %</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       }

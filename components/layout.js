@@ -17,7 +17,7 @@ const Layout = ({ asPath, children, customClass }) => {
       </Container>
 
       <Container>
-        <Footer />
+        <Footer asPath={asPath} />
       </Container>
     </div>
     )

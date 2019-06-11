@@ -10,11 +10,12 @@ const routes = require("./routes");
 const cookieSession = require('cookie-session')
 const axios = require("axios");
 const uCookies = require("universal-cookie");
+const numeral = require('numeral');
 
 require("dotenv").config();
 
 const dev = process.env.NODE_ENV !== "production";
-const port = process.env.NEXT_WEATHER_PORT || process.env.PORT || 8080;
+const port = process.env.NEXT_WEATHER_PORT || process.env.PORT || 3000;
 
 const app = next({ dev });
 const handler = routes.getRequestHandler(app, ({req, res, route, query}) => {
@@ -49,6 +50,32 @@ app
       })
     );
     server.use(requestIp.mw());
+
+    server.get('*', (req, res) => {
+      if (isEmpty(get(numeral, 'locales.id'))) {
+          numeral.register('locale', 'id', {
+              delimiters: {
+                  thousands: '.',
+                  decimal: ','
+              },
+              abbreviations: {
+                  thousand: 'rb',
+                  million: 'jt',
+                  billion: 'm',
+                  trillion: 'tr'
+              },
+              ordinal : function (number) {
+                  return 'ke-';
+              },
+              currency: {
+                  symbol: 'Rp '
+              }
+          });
+      }
+      if ( numeral.locale() != getCookieFromServer('next-i18next', req) )
+        numeral.locale(getCookieFromServer('next-i18next', req));
+      return handler(req, res)
+    })
 
     server.get("/service-worker.js", (req, res) => {
       const filePath = join(__dirname, "build", req.originalUrl);

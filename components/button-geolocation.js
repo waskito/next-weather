@@ -16,6 +16,7 @@ class ButtonGeolocation extends React.Component {
       const {
         coords,
         getWeatherByLatLng,
+        lang,
         saveLocation,
         setLocation
       } = this.props;
@@ -23,7 +24,7 @@ class ButtonGeolocation extends React.Component {
       const lng = get(coords, 'longitude');
       saveLocation(lat, lng, 'geolocation');
       setLocation(lat, lng, 'geolocation');
-      getWeatherByLatLng(lat, lng);
+      getWeatherByLatLng(lat, lng, lang);
     }
   }
 
