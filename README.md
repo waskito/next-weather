@@ -38,7 +38,6 @@ Interactive
 npm run dev && npm run test:i
 ```
 
-Then open [https://localhost:3000](https://localhost:3000).
 
 ---
 
