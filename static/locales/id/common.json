@@ -1,0 +1,8 @@
+{
+  "current-weather": "Cuaca Saat Ini",
+  "footer": {
+    "copyright": "© {{year}} Next Weather. Made with <0></0> in Indonesia.",
+    "version": "Versi"
+  },
+  "title": "Next Weather | Cek Cuaca di Areamu"
+}
