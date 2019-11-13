@@ -1,4 +1,12 @@
 {
+  "content": {
+    "location": "Lokasi",
+    "cloudiness": "Awan",
+    "temperature": "Suhu",
+    "wind": "Angin",
+    "pressure": "Tekanan",
+    "humidity": "Kelembaban"
+  },
   "current-weather": "Cuaca Saat Ini",
   "footer": {
     "copyright": "© {{year}} Next Weather. Made with <0></0> in Indonesia."
