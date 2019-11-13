@@ -1,6 +1,6 @@
 # NEXT WEATHER
 
-NextJS App for checking current weather in certain area.
+NextJS App for checking current weather in certain area. It will Use current IP Address as default geolocation provider using https://ip4.seeip.org. Browser's geolocation API is optional.
 
 ## Development
 
