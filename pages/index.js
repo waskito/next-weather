@@ -8,10 +8,8 @@ import {
 } from 'lodash'
 import { getCookie } from '../utils/cookies'
 import Head from '../components/head'
-import { i18n, withNamespaces } from '../i18n'
+import { withNamespaces } from '../i18n'
 import { kelvinToCelsius } from 'temperature'
-import { Link } from '../routes'
-import moment from 'moment'
 import numeral from '../utils/numeral'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -141,13 +139,16 @@ render() {
                     </td>
                   </tr>
                   <tr>
-                    <td><img src="/static/images/svg/wind.svg" width="18" height="18"  /> Wind</td>
+                    <td>
+                      <img src="/static/images/svg/wind.svg" width="18" height="18"  />
+                      <span> {t('content.wind')}</span>
+                    </td>
                     <td>{ numeral(get(weather, 'wind.speed')).format('0,0.00') } m/s, {d2d( get(weather, 'wind.deg') )}</td>
                   </tr>
                   <tr>
                     <td>
                       <img src="/static/images/svg/temperature-2.svg" width="18" height="18"  />
-                      <span> {t('content.wind')}</span>
+                      <span> {t('content.pressure')}</span>
                     </td>
                     <td>{ numeral(get(weather, 'main.pressure')).format('0,0.00') } hpa</td>
                   </tr>
@@ -169,6 +170,16 @@ render() {
 }
 }
 
+Index.propTypes = {
+  location: PropTypes.shape({
+    lat: PropTypes.number,
+    lng: PropTypes.number,
+  }),
+  lang: PropTypes.string,
+  t: PropTypes.func,
+  weather: PropTypes.shape({}),
+}
+
 const mapStateToProps = (state) => ({
   location: state.location.data,
   weather: state.weather.data
@@ -177,5 +188,5 @@ const mapStateToProps = (state) => ({
 export default compose(
   connect(mapStateToProps),
   withNamespaces(['common']),
-  noAuth()
+  noAuth(),
 )(Index);
