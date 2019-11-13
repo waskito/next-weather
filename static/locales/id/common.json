@@ -4,10 +4,29 @@
     "cloudiness": "Awan",
     "temperature": "Suhu",
     "wind": "Angin",
+    "direction": "Arah Angin",
     "pressure": "Tekanan",
     "humidity": "Kelembaban"
   },
   "current-weather": "Cuaca Saat Ini",
+  "direction": {
+    "N": "Utara",
+    "E": "Timur",
+    "S": "Selatan",
+    "W": "Barat",
+    "NE": "Timur laut",
+    "SE": "Tenggara",
+    "SW": "Barat Daya",
+    "NW": "Barat Laut",
+    "NNE": "Utara timur laut",
+    "ENE": "Timur Timur laut",
+    "ESE": "Timur Menenggara",
+    "SSE": "Selatan Meneggara",
+    "SSW": "Selatan barat Daya",
+    "WSW": "Barat barat Daya",
+    "WNW": "Barat barat Laut",
+    "NNW": "Utara barat Laut"
+  },
   "footer": {
     "copyright": "© {{year}} Next Weather. Made with <0></0> in Indonesia."
   },

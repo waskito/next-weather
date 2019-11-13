@@ -4,10 +4,29 @@
     "cloudiness": "Cloudiness",
     "temperature": "Temperature",
     "wind": "Wind",
+    "direction": "Wind Direction",
     "pressure": "Pressure",
     "humidity": "Humidity"
   },
   "current-weather": "Current Weather",
+  "direction": {
+    "N": "North",
+    "E": "East",
+    "S": "South",
+    "W": "West",
+    "NE": "North East",
+    "SE": "South East",
+    "SW": "South West",
+    "NW": "North West",
+    "NNE": "North North East",
+    "ENE": "East North East",
+    "ESE": "East South East",
+    "SSE": "South South East",
+    "SSW": "South South West",
+    "WSW": "West south West",
+    "WNW": "West North West",
+    "NNW": "North North West"
+  },
   "footer" : {
     "copyright": "© {{year}} Next Weather. Made with <0></0> in Indonesia."
   },
