@@ -25,17 +25,22 @@ export const getWeatherByLatLng = (lat, lon, lang = 'en') => async dispatch => {
     }
   };
   dispatch({ type: WEATHER_GET });
-  const res = await dispatch(apiCall(dataReq));
-  if ( get(res, 'status') == 200 ) {
-    dispatch({
-      type: WEATHER_GET_SUCCESS,
-      payload: {
-        data: get(res, 'data')
-      }
-    });
+  try {
+    const res = await dispatch(apiCall(dataReq));
+    if ( get(res, 'status') == 200 ) {
+      dispatch({
+        type: WEATHER_GET_SUCCESS,
+        payload: {
+          data: get(res, 'data')
+        }
+      });
+      return res;
+    }else{
+      dispatch({ type: WEATHER_GET_ERROR });
+    }
     return res;
-  }else{
+  } catch (error) {
     dispatch({ type: WEATHER_GET_ERROR });
+    return error;
   }
-  return res;
 }
