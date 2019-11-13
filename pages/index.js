@@ -115,7 +115,7 @@ render() {
                 <tbody>
                   <tr>
                     <td>
-                      <img src="/static/images/svg/weather-1.svg" width="18" height="18"  />
+                      <img src="/static/images/svg/location.svg" width="18" height="18"  />
                       <span> {t('content.location')}</span>
                     </td>
                     <td className="td-location">{ get(weather, 'name') }</td>
@@ -143,7 +143,14 @@ render() {
                       <img src="/static/images/svg/wind.svg" width="18" height="18"  />
                       <span> {t('content.wind')}</span>
                     </td>
-                    <td>{ numeral(get(weather, 'wind.speed')).format('0,0.00') } m/s, {d2d( get(weather, 'wind.deg') )}</td>
+                    <td>{ numeral(get(weather, 'wind.speed')).format('0,0.00') } m/s</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <img src="/static/images/svg/weather-1.svg" width="18" height="18"  />
+                      <span> {t('content.direction')}</span>
+                    </td>
+                    <td>{t(`direction.${d2d( get(weather, 'wind.deg') )}`)}</td>
                   </tr>
                   <tr>
                     <td>
