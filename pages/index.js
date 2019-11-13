@@ -116,17 +116,26 @@ render() {
               <table className="table table-bordered">
                 <tbody>
                   <tr>
-                    <td><img src="/static/images/svg/weather-1.svg" width="18" height="18"  /> Location</td>
+                    <td>
+                      <img src="/static/images/svg/weather-1.svg" width="18" height="18"  />
+                      <span> {t('content.location')}</span>
+                    </td>
                     <td className="td-location">{ get(weather, 'name') }</td>
                   </tr>
                   <tr>
-                    <td><img src="/static/images/svg/clouds.svg" width="18" height="18"  /> Cloudiness</td>
+                    <td>
+                      <img src="/static/images/svg/clouds.svg" width="18" height="18"  />
+                      <span> {t('content.cloudiness')}</span>
+                    </td>
                     <td className="text-capitalize">
                       <span>{ get(first(get(weather, 'weather')), 'description') }</span>
                     </td>
                   </tr>
                   <tr>
-                    <td><img src="/static/images/svg/temperature-1.svg" width="18" height="18"  /> Temperature</td>
+                    <td>
+                      <img src="/static/images/svg/temperature-1.svg" width="18" height="18"  />
+                      <span> {t('content.temperature')}</span>
+                    </td>
                     <td className="text-capitalize">
                       <span>{ numeral(kelvinToCelsius(get(weather, 'main.temp'))).format('0,0.0') } ° Celsius</span>
                     </td>
@@ -136,11 +145,17 @@ render() {
                     <td>{ numeral(get(weather, 'wind.speed')).format('0,0.00') } m/s, {d2d( get(weather, 'wind.deg') )}</td>
                   </tr>
                   <tr>
-                    <td><img src="/static/images/svg/temperature-2.svg" width="18" height="18"  /> Pressure</td>
+                    <td>
+                      <img src="/static/images/svg/temperature-2.svg" width="18" height="18"  />
+                      <span> {t('content.wind')}</span>
+                    </td>
                     <td>{ numeral(get(weather, 'main.pressure')).format('0,0.00') } hpa</td>
                   </tr>
                   <tr>
-                    <td><img src="/static/images/svg/hail.svg" width="18" height="18"  /> Humidity</td>
+                    <td>
+                      <img src="/static/images/svg/hail.svg" width="18" height="18"  />
+                      <span> {t('content.humidity')}</span>
+                    </td>
                     <td>{ numeral(get(weather, 'main.humidity')).format('0,0') } %</td>
                   </tr>
                 </tbody>
