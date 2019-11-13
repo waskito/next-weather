@@ -5,7 +5,7 @@ import {
   MYIP_GET_SUCCESS
 } from "../actionTypes";
 
-import { apiCall, apiUrl } from "../../services/request";
+import { apiCall } from "../../services/request";
 
 export const myIp = () => async dispatch => {
   const dataReq = {
@@ -13,17 +13,22 @@ export const myIp = () => async dispatch => {
     url: "https://ip4.seeip.org/json",
   };
   dispatch({ type: MYIP_GET });
-  const res = await dispatch(apiCall(dataReq));
-  if ( get(res, 'status') == 200 ) {
-    dispatch({
-      type: MYIP_GET_SUCCESS,
-      payload: {
-        ip: get(res, 'data.ip')
-      }
-    });
+  try {
+    const res = await dispatch(apiCall(dataReq));
+    if ( get(res, 'status') == 200 ) {
+      dispatch({
+        type: MYIP_GET_SUCCESS,
+        payload: {
+          ip: get(res, 'data.ip')
+        }
+      });
+      return res;
+    }else{
+      dispatch({ type: MYIP_GET_ERROR });
+    }
     return res;
-  }else{
+  } catch (error){
     dispatch({ type: MYIP_GET_ERROR });
+    return error;
   }
-  return res;
 }
